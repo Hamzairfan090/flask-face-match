@@ -208,7 +208,7 @@ def clean_temp_folder():
     try:
         shutil.rmtree(TEMP_FOLDER)
         os.makedirs(TEMP_FOLDER, exist_ok=True)  # Recreate empty folder
-        print("🧹 Cleaned up all temporary images from temp_images/")
+        print("Cleaned up all temporary images from temp_images/")
     except Exception as e:
         print(f" Error while cleaning temp folder: {e}")
 
