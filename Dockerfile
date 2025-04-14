@@ -1,26 +1,26 @@
-# Use a base Python image
+# Use a slim Python base image
 FROM python:3.12-slim
 
-# Install necessary system libraries (for OpenCV to work)
+# Install required system dependencies
 RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
-    libgthread-2.0-0 \  # Add missing dependency
+    libgthread-2.0-0 \
     libsm6 \
     libxext6 \
     libxrender-dev \
-    && rm -rf /var/lib/apt/lists/*  # Clean up to reduce image size
+    && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy the requirements file into the container
+# Copy requirements first
 COPY requirements.txt .
 
-# Install the Python dependencies
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code into the container
+# Copy the rest of the app
 COPY . .
 
-# Set the default command to run your application
+# Run the app
 CMD ["python", "main.py"]
