@@ -1,9 +1,13 @@
-# Use a slim Python base image
-FROM python:3.12-slim
+# Use full Python image instead of slim to avoid missing tools
+FROM python:3.12
 
-# Install required system dependencies
+# Avoid interactive prompts during build
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
+    libglib2.0-0 \
     libgthread-2.0-0 \
     libsm6 \
     libxext6 \
@@ -13,14 +17,14 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy requirements first
+# Copy requirements
 COPY requirements.txt .
 
-# Install Python dependencies
+# Install Python packages
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the app
+# Copy app code
 COPY . .
 
-# Run the app
+# Command to run app
 CMD ["python", "main.py"]
