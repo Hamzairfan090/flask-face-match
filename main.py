@@ -1,3 +1,5 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # This tells TensorFlow to ignore any GPUs
 from flask import Flask, request, jsonify
 import requests
 from config import MAKE_WEBHOOK_URL
