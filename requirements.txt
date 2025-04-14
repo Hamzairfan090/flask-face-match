@@ -2,3 +2,4 @@ Flask
 requests
 deepface
 pillow
+tf-keras
